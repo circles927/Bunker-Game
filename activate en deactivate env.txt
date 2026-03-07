@@ -1,0 +1,39 @@
+ga naar de betreffende map
+(cd "Github Repo's")
+
+Voor Windows:
+
+eenmaal:
+python -m venv venv
+-
+dan:
+Set-ExecutionPolicy Unrestricted -Scope Process
+venv\Scripts\activate.ps1
+
+en
+
+deactivate
+
+Voor Linux Mint:
+
+eenmaal:
+python3 -m venv venv
+-
+dan:
+source venv/bin/activate
+
+---------------------------
+
+Runnen middels VS Code werkt nog niet.
+
+Runnen vanuit Terminal werkt wel.
+
+Windows:
+"py mainGame.py"
+Linux Mint:
+python3 mainGame.py
+
+Zonder quotes.
+
+
+
