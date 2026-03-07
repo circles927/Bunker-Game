@@ -1,0 +1,32 @@
+Oké nou,
+
+Ik heb iets gevonden.
+
+In pygame kun je masks gebruiken voor pixel-perfect collisions.
+
+Maar je kunt die masks ook aanpassen. En erin tekenen.
+
+Dat is ideaal! Dat is misschien precies wat ik zoek.
+
+    Drawing and Erasing
+
+    You can draw one mask onto another using the draw() method and erase using the erase() method.
+
+    # Draw other_mask onto mask
+    mask.draw(other_mask, offset)
+
+    # Erase other_mask from mask
+    mask.erase(other_mask, offset)
+
+Dat geeft bing mij in de half AI achtig geproduceerde tips en uitleg.
+
+Daarmee kan ik mijn spel implementeren.
+
+Is de rest niet zo moeilijk meer.
+
+Wauw.
+
+Het zou dichterbij kunnen zijn dan ik dacht. Pauze?
+
+Misschien.
+
