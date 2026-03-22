@@ -32,6 +32,12 @@ gravity = 0.5
 player_vel_y = 0
 on_ground = False
 
+# De offset moet je meegeven omdat in eerste instantie zowel de speler en het terrein een afstand te overbruggen hebben, voordat ze met elkaar te vergelijken zijn.
+# Dit heeft te maken met de beginwaarden waar ze op beginnen. De speler 100 x verder het scherm in, en het terrein 450 y verder naar beneden.
+# Pas als dit verschil overbrugt is kan je ze met elkaar vergelijken.
+
+# Toch is een van de dingen die nog niet klopt, dat ie het midden van z´n voeten moet checken op een collision. Omdat hij daar in het midden "z'n steun zou vinden"
+# (zwaartekrachts-gewijs).
 def pixel_perfect_collision(rect1, mask1, rect2, mask2):
     """Check pixel-perfect collision between two masked surfaces."""
     offset = (rect2.x - rect1.x, rect2.y - rect1.y)
