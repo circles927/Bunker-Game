@@ -1,0 +1,11 @@
+Oké nou, ik moet misschien even wat kunnen typen om overzicht te houden.
+
+Ik wil toch eigenlijk niet met masks gaan werken.
+
+Ik heb trouwens volgens mij ergens ooit in pygame documentatie gezien dat je bottom mid kon selecteren.
+
+Dat klopt. Vanuit een rect gezien, blijkbaar.
+
+Maar dat is de Worm.
+
+Terrain moet anders, de y waarde.

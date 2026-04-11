@@ -13,8 +13,10 @@ pygame.display.set_caption("Bunker Game")
 
 # Loading of images
 # Still having to adjust paths (from main folder)
-player_img = pygame.image.load("../images/player.png").convert_alpha()
-terrain_img = pygame.image.load("../images/terrain.png").convert_alpha()
+player_img = pygame.image.load("reference material/images/player2.1.png").convert_alpha()
+terrain_img = pygame.image.load("reference material/images/terrain.png").convert_alpha()
+
+terrain_mask = pygame.mask.from_surface(terrain_img)
 
 # Colors
 GREEN = (34, 139, 34)
@@ -24,14 +26,19 @@ RED = (200, 0, 0)
 OFFWHITE = (255, 255, 245)
 WHITE = (255, 255, 255)
 
+terrain_pos = (0, 450)
+
 # Clock
 clock = pygame.time.Clock()
 
 class Worm:
-    def __init__(self, x, y, color):
+    def __init__(self, x, y, imgWorm):
         self.x = x
         self.y = y
-        self.color = color
+        self.width = 45
+        self.height = 99
+        self.footing = (0, 0)
+        self.imgWorm = imgWorm
         self.radius = 10
         self.vel_x = 0
         self.vel_y = 0
@@ -50,20 +57,25 @@ class Worm:
     
     # might need to pass terrain variable here as well
     def check_collision(self):
+        # wormRect = self.imgWorm.get_rect(topleft=(self.x, self.y))
         self.on_ground = False
-        if self.y + self.radius >= HEIGHT:
-            self.y = HEIGHT - self.radius
-            self.vel_y = 0
-            self.on_ground = True
-        else:
-            # Check terrain collision
-            if terrain.get_at((int(self.x), int(self.y + self.radius)))[3] != 0:
+        self.footing = (self.x + self.width // 2, self.y + self.height)  # Point at the middle of the worm's feet
+
+        mask_x = self.footing[0] - terrain_pos[0]
+        mask_y = self.footing[1] - terrain_pos[1]
+
+        if 0 <= mask_x < terrain_mask.get_size()[0] and 0 <= mask_y < terrain_mask.get_size()[1]:
+            if terrain_mask.get_at((mask_x, mask_y)) == 1:
                 self.y -= 1
                 self.vel_y = 0
-                self.on_ground = True
+                self.on_ground = True  # 1 if solid, 0 if empty
+            else:
+                self.on_ground = False
+        
+        return 0
 
     def draw(self):
-        pygame.draw.circle(screen, self.color, (int(self.x), int(self.y)), self.radius)
+        screen.blit(self.imgWorm, (self.x, self.y))
     
 class Projectile:
     def __init__(self, x, y, angle, power):
@@ -81,10 +93,29 @@ class Projectile:
     # Draw?
     # -
 
-class Terrain:
-    def __init__(self):
-        return
+worms = [Worm(100, 100, player_img), Worm(300, 100, player_img)]
+current_worm = 0
 
-def Game():
-    # Maybe terrain defining here, as a first?
-    return
+while True:
+    # Main Game loop
+    # Starting by spawning two example worms
+    screen.fill((75, 75, 255))
+    screen.blit(terrain_img, terrain_pos)
+
+    keys = pygame.key.get_pressed()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                print("Spacebar pressed - shoot projectile")
+    
+    worm = worms[current_worm]
+    worm.move(keys)
+    worm.apply_gravity()
+    worm.check_collision()
+    worm.draw()
+
+    pygame.display.flip()
+    clock.tick(60)

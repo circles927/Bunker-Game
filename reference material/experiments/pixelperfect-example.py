@@ -16,7 +16,7 @@ clock = pygame.time.Clock()
 BG_COLOR = (135, 206, 235)  # Sky blue
 
 # Load images with transparency
-player_img = pygame.image.load("../images/player.png").convert_alpha()
+player_img = pygame.image.load("../images/player2.1.png").convert_alpha()
 terrain_img = pygame.image.load("../images/terrain.png").convert_alpha()
 
 # Create rects
