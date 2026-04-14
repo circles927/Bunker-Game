@@ -21,7 +21,7 @@ GREEN = (34, 139, 34)
 BLUE = (135, 206, 235)
 BROWN = (139, 69, 19)
 RED = (200, 0, 0)
-OFFWHITE = (255, 255, 245)
+OFFWHITE = (255, 255, 205)
 WHITE = (255, 255, 255)
 
 # Clock
@@ -33,13 +33,15 @@ class Worm:
         self.y = y
         self.width = 44
         self.height = 99
-        self.footing = ((self.x + self.width // 2) + 39, (self.y + self.height) + 23)
+        self.footing = ((self.x + self.width // 2) + 39, (self.y + self.height) + 20)
         self.imgWorm = imgWorm
         self.vel_y = 0
+        self.mirror = False
         # self.on_ground = False
 
     def move(self, keys):
         if keys[pygame.K_LEFT]:
+            self.mirror = True
             self.footing = ((self.x + self.width // 2) + 39, (self.y + self.height) + 20)
             
             yCount = 0
@@ -50,8 +52,10 @@ class Worm:
                     break
                 elif self.check_collision(self.footing[0] - 1, self.footing[1] - yCount) == True:
                     yCount += 1
+            
 
         if keys[pygame.K_RIGHT]:
+            self.mirror = False
             self.footing = ((self.x + self.width // 2) + 39, (self.y + self.height) + 20)
 
             yCount = 0
@@ -81,8 +85,11 @@ class Worm:
         return False
 
     def draw(self):
-        screen.blit(self.imgWorm, (self.x, self.y))
-    
+        if self.mirror:
+            screen.blit(pygame.transform.flip(self.imgWorm, True, False), (self.x, self.y))
+        else:
+            screen.blit(self.imgWorm, (self.x, self.y))
+
 class Terrain:
     def __init__(self, imgTerrain):
         self.imgTerrain = imgTerrain
