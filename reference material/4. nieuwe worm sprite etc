@@ -5,4 +5,22 @@ Hij is 45 pixels breed.
 
 Gebaseerd op 128 pixel bij 128 pixel formaat (inclusief transparant).
 
+-
 
+Oké dat is gelukt.
+
+Nou wil ik als volgende stap eigenlijk dat ie ook leert klimmen, ipv alleen vallen en "lopen".
+
+-
+
+Je wilt eigenlijk de check_collision functie hergebruiken voor een nieuwe hypothetische locatie. Een pixel verder, of verder terug ten opzichte van de huidige locatie.
+
+-
+
+Oké nou...
+
+Even opschrijven.
+
+Ik wil 2 pixels bewegen.
+
+Dus ik moet...
