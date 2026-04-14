@@ -7,7 +7,7 @@ import math
 pygame.init()
 
 # Screen settings
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 1600, 1200
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Bunker Game")
 
@@ -53,11 +53,29 @@ class Worm:
                 elif self.check_collision(self.footing[0] - 1, self.footing[1] - yCount) == True:
                     yCount += 1
             
+            yCount = 0
+            for yCount in range(6):
+                if self.check_collision(self.footing[0] - 1, self.footing[1] - yCount) == False:
+                    self.x -= 1
+                    self.y -= yCount
+                    break
+                elif self.check_collision(self.footing[0] - 1, self.footing[1] - yCount) == True:
+                    yCount += 1
+            
 
         if keys[pygame.K_RIGHT]:
             self.mirror = False
             self.footing = ((self.x + self.width // 2) + 39, (self.y + self.height) + 20)
 
+            yCount = 0
+            for yCount in range(6):
+                if self.check_collision(self.footing[0] + 1, self.footing[1] - yCount) == False:
+                    self.x += 1
+                    self.y -= yCount
+                    break
+                elif self.check_collision(self.footing[0] + 1, self.footing[1] - yCount) == True:
+                    yCount += 1
+            
             yCount = 0
             for yCount in range(6):
                 if self.check_collision(self.footing[0] + 1, self.footing[1] - yCount) == False:
@@ -93,7 +111,7 @@ class Worm:
 class Terrain:
     def __init__(self, imgTerrain):
         self.imgTerrain = imgTerrain
-        self.position = (0, 450)
+        self.position = (0, 900)
         self.mask = pygame.mask.from_surface(imgTerrain)
 
     def checkPixelTerrain(self, maskPos):
@@ -127,7 +145,7 @@ class Projectile:
 
 terrain = Terrain(terrain_img)
 
-worms = [Worm(100, 100, player_img), Worm(300, 100, player_img)]
+worms = [Worm(200, 200, player_img), Worm(600, 200, player_img)]
 current_worm = 0
 
 while True:
